@@ -1,7 +1,36 @@
 #!/usr/bin/make -f
 
+# Native Ubuntu package of PXView: the Qt GUI (PXView), the headless daemon
+# (pxviewd), the protocol decoders and the bundled firmware files, all built
+# against the distribution Qt 6 (no aqtinstall, no private Qt runtime).
+#
+#   -DENABLE_TAURI=OFF  the Tauri "PXView-Agent" wrapper needs the Rust
+#                       toolchain and the WebKitGTK stack; it is not part of
+#                       this package.
+#   -DENABLE_TESTS=OFF  the upstream unit tests are opt-in.
+
 %:
-	dh $@ --buildsystem=cmake
+	dh $@ --buildsystem=cmake+ninja
 
 override_dh_auto_configure:
-	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DQT_VERSION_FORCE=6
+	# fx2lafw firmware for Cypress FX2 based logic analyzers (Saleae Logic,
+	# USBee, ...). Built best-effort: without sdcc the CMake install rule
+	# simply skips the firmware files, as in the upstream build.
+	-bash build_fx2lafw.sh
+	dh_auto_configure -- \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DENABLE_TAURI=OFF \
+		-DENABLE_TESTS=OFF
+
+override_dh_auto_install:
+	dh_auto_install
+	# libsigrok is a static archive that is linked into PXView/pxviewd with
+	# --whole-archive, so the installed archive is a build artifact and not
+	# part of the runtime package. debhelper's cmake buildsystem installs
+	# straight into the package tree for a single-binary source package, so
+	# check both staging locations.
+	rm -f debian/tmp/usr/lib/libsigrok.a debian/pxlogic-pxview/usr/lib/libsigrok.a
+
+# Upstream's test suite is opt-in (ENABLE_TESTS=OFF), so the Ninja generator
+# has no "test" target; debhelper's auto-test step would abort the build.
+override_dh_auto_test:

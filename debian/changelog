@@ -1,5 +1,18 @@
-pxlogic-pxview (1.37.0) unstable; urgency=medium
+pxlogic-pxview (1.6.5) unstable; urgency=medium
 
-  * Initial release of Ubuntu version.
+  * Initial package of PXView 1.6.5 (= upstream tag PXView_v1.6.5, current
+    main branch) for Ubuntu 26.04 (resolute), built against the distribution
+    Qt 6 instead of a separately installed Qt.
+  * Packaging rewritten for this source tree: the inherited debian/ directory
+    referenced Qt packages that do not exist (libqt6svg6-dev), carried a
+    package version that never applied to PXView, and was missing mandatory
+    dependencies of the current CMake build (Qt6 Svg/WebSockets/Multimedia
+    and private headers, nlohmann-json3-dev, libzip-dev, nettle-dev,
+    libftdi1-dev, sdcc).
+  * Ship the Qt GUI (PXView), the headless daemon (pxviewd), the C protocol
+    decoders and the bundled firmware (fx2lafw built from source), plus the
+    udev rules and the desktop entry.
+  * Do not install the libsigrok.a build artifact, which is linked into the
+    binaries statically.
 
- -- RigoLigo <rigoligo03@gmail.com>  Sun, 19 Jan 2025 17:24:35 +0800
+ -- PXLogic <913461865@qq.com>  Fri, 16 Oct 2026 18:01:13 +0800

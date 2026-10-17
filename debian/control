@@ -3,15 +3,41 @@ Section: electronics
 Priority: optional
 Maintainer: PXLogic <913461865@qq.com>
 Standards-Version: 4.6.0.1
-Build-Depends: debhelper-compat (= 12), pkg-config, cmake, libgl-dev,
- libglib2.0-dev, libpython3-dev, libfftw3-dev, libusb-1.0-0-dev, zlib1g-dev,
- libboost-all-dev,
- libqt6svg6-dev, qt6-tools-dev-tools, qt6-tools-dev, qt6-base-private-dev,
- qt6-base-dev
+Rules-Requires-Root: no
+Build-Depends: debhelper-compat (= 13),
+ cmake (>= 3.16),
+ ninja-build,
+ pkg-config,
+ qt6-base-dev,
+ qt6-base-dev-tools,
+ qt6-base-private-dev,
+ qt6-svg-dev,
+ qt6-websockets-dev,
+ qt6-multimedia-dev,
+ libgl-dev,
+ libglib2.0-dev,
+ libpython3-dev,
+ libfftw3-dev,
+ libboost-dev,
+ libusb-1.0-0-dev,
+ zlib1g-dev,
+ nlohmann-json3-dev,
+ libzip-dev,
+ nettle-dev,
+ libftdi1-dev,
+ sdcc
 
 Package: pxlogic-pxview
-Architecture: amd64
+Architecture: any
 Depends:
  ${shlibs:Depends},
- ${misc:Depends}
+ ${misc:Depends},
+ python3
 Description: PXView logic analyzer software
+ PXView is a Qt-based signal analysis application for PXLogic USB logic
+ analyzers and a wide range of third-party instruments supported by
+ libsigrok.
+ .
+ Features include logic analyzer, oscilloscope and mixed-signal capture,
+ more than 220 protocol decoders, raw and decoded data export, USB hotplug
+ support, and a headless daemon (pxviewd) for automated capture.

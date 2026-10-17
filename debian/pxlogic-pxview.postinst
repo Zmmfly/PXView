@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+# PXView installs its USB device rules into /usr/lib/udev/rules.d. systemd-udevd
+# reads that directory when its rules are reloaded, so do it here to make the
+# device permissions effective without rebooting.
+if [ "$1" = "configure" ] && [ -x /usr/bin/udevadm ]; then
+	udevadm control --reload-rules || true
+	udevadm trigger --subsystem-match=usb || true
+fi
+
+#DEBHELPER#
+
+exit 0
