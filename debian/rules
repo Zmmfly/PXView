@@ -4,9 +4,11 @@
 # (pxviewd), the protocol decoders and the bundled firmware files, all built
 # against the distribution Qt 6 (no aqtinstall, no private Qt runtime).
 #
-#   -DENABLE_TAURI=OFF  the Tauri "PXView-Agent" wrapper needs the Rust
-#                       toolchain and the WebKitGTK stack; it is not part of
-#                       this package.
+#   -DENABLE_TAURI=ON   build the Tauri "PXView-Agent" desktop wrapper as
+#                       well. It needs the Rust toolchain, Node.js/npm and
+#                       the WebKitGTK 4.1 development files at build time,
+#                       and the WebKitGTK runtime at run time (the binary
+#                       deliberately links the system copy).
 #   -DENABLE_TESTS=OFF  the upstream unit tests are opt-in.
 
 %:
@@ -19,7 +21,7 @@ override_dh_auto_configure:
 	-bash build_fx2lafw.sh
 	dh_auto_configure -- \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DENABLE_TAURI=OFF \
+		-DENABLE_TAURI=ON \
 		-DENABLE_TESTS=OFF
 
 override_dh_auto_install:

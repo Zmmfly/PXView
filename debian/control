@@ -25,7 +25,15 @@ Build-Depends: debhelper-compat (= 13),
  libzip-dev,
  nettle-dev,
  libftdi1-dev,
- sdcc
+ sdcc,
+ cargo,
+ rustc,
+ nodejs,
+ npm,
+ libwebkit2gtk-4.1-dev,
+ libgtk-3-dev,
+ librsvg2-dev,
+ libayatana-appindicator3-dev
 
 Package: pxlogic-pxview
 Architecture: any
@@ -40,4 +48,6 @@ Description: PXView logic analyzer software
  .
  Features include logic analyzer, oscilloscope and mixed-signal capture,
  more than 220 protocol decoders, raw and decoded data export, USB hotplug
- support, and a headless daemon (pxviewd) for automated capture.
+ support, a headless daemon (pxviewd) for automated capture, and the PXView
+ Agent desktop wrapper, which drives the headless capture API with an
+ OpenAI compatible language model.
