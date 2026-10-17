@@ -251,6 +251,11 @@ int main(int argc, char *argv[])
 	QApplication::setApplicationName(DS_TITLE);
     QApplication::setOrganizationName("PXlogicV20");
     QApplication::setOrganizationDomain("www.marrychip.com");
+    // The binary is called PXView, but the desktop entry is called
+    // pxview.desktop. Announce that name, otherwise the shell cannot
+    // associate the window with the desktop entry and falls back to a
+    // generic icon in the task bar (Wayland app_id).
+    QGuiApplication::setDesktopFileName(QStringLiteral("pxview"));
 
 	//----------------------init log
 	pxv_log_init(); // Don't call before QApplication be inited

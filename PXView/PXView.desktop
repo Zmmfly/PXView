@@ -7,6 +7,9 @@ TryExec=pxview-launcher
 Exec=pxview-launcher
 Icon=pxview
 Terminal=false
+# Match the window class of the Qt binary, so that the shell associates
+# the running window with this desktop entry and shows its icon.
+StartupWMClass=PXView
 Actions=Classic;Agent;
 Categories=Development;Electronics;Qt;
 
