@@ -162,6 +162,7 @@ input.bin → nrzi_c → 4b5b_c → ethernet_c（顶层解码器）
 
 - `stack` 中第一个元素必须指定 `channels`（映射到 `input.bin` 的通道）
 - 后续元素可省略 `channels`，系统会自动按顺序映射
+- 每个元素可用 `options` 设置该层解码器的选项（格式与顶层 `options` 相同），例如 `{"id": "uart", "channels": {"rx": 0}, "options": {"baudrate": 100000, "parity": "even", "stop_bits": 2.0}}`；省略时使用默认值
 - 顶层解码器的 `channels` 通常为空 `{}`，因为其输入来自堆叠链的上一级
 
 ## 3. 单解码器验证流程
