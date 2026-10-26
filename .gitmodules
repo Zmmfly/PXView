@@ -9,7 +9,7 @@
 	url = https://github.com/sigrokproject/sigrok-util.git
 [submodule "libsigrok"]
 	path = libsigrok
-	url = https://github.com/PXLogic/libsigrok.git
+	url = https://github.com/Zmmfly/libsigrok.git
 	branch = pxview-fork
 [submodule "libsigrokdecode"]
 	path = libsigrokdecode
